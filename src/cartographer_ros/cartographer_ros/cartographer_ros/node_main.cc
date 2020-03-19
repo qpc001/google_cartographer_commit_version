@@ -58,7 +58,7 @@ void Run() {
     auto map_builder =
             cartographer::common::make_unique<cartographer::mapping::MapBuilder>(
                 node_options.map_builder_options);
-    // 创建自定义的Node节点
+    // 构造的Node节点
     Node node(node_options, std::move(map_builder), &tf_buffer);
 
     // 从文件读取状态(如果标志位存在)

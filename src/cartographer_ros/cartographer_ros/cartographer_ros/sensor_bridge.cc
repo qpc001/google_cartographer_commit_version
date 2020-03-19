@@ -155,11 +155,11 @@ std::unique_ptr<carto::sensor::ImuData> SensorBridge::ToImuData(
     if (sensor_to_tracking == nullptr) {
         return nullptr;
     }
-    // 检查平移量
-    CHECK(sensor_to_tracking->translation().norm() < 1e-5)
-            << "The IMU frame must be colocated with the tracking frame. "
-               "Transforming linear acceleration into the tracking frame will "
-               "otherwise be imprecise.";
+//    // 检查平移量
+//    CHECK(sensor_to_tracking->translation().norm() < 1e-5)
+//            << "The IMU frame must be colocated with the tracking frame. "
+//               "Transforming linear acceleration into the tracking frame will "
+//               "otherwise be imprecise.";
     // 返回carto::sensor::ImuData 类型的imu数据
     // 数据内容是: 将加速度,角速度 从传感器坐标系转换到 'tracking_frame_'坐标系之后的加速度和角速度
     return carto::common::make_unique<carto::sensor::ImuData>(
@@ -184,7 +184,9 @@ void SensorBridge::HandleImuMessage(const std::string& sensor_id,
 }
 // 回调: 处理激光扫描数据
 void SensorBridge::HandleLaserScanMessage(
-        const std::string& sensor_id, const sensor_msgs::LaserScan::ConstPtr& msg) {
+        const std::string& sensor_id,                   //传感器ID
+        const sensor_msgs::LaserScan::ConstPtr& msg) {  //数据
+
     carto::sensor::PointCloudWithIntensities point_cloud;
     carto::common::Time time;
     // 调用pcl解析ros的点云消息 , 然后返回元组类型数据<带强度的点云,时间戳>

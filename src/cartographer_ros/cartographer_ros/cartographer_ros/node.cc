@@ -68,8 +68,8 @@ template <typename MessageType>
 ::ros::Subscriber SubscribeWithHandler(
         void (Node::*handler)(int, const std::string&,
                               const typename MessageType::ConstPtr&),   //回调函数
-                              const int trajectory_id,                  //轨迹ID
-                              const std::string& topic,                 //topic
+        const int trajectory_id,                                        //轨迹ID
+        const std::string& topic,                                       //topic
         ::ros::NodeHandle* const node_handle, Node* const node) {       //ROS的节点句柄_node_handle
 
     // 调用ROS的节点句柄_node_handle订阅topic, 传入给定的回调函数

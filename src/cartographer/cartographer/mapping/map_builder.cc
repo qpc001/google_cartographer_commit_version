@@ -74,8 +74,9 @@ proto::MapBuilderOptions CreateMapBuilderOptions(
     return options;
 }
 
+// MapBuilder::MapBuilder 构造函数
 MapBuilder::MapBuilder(const proto::MapBuilderOptions& options)
-    : options_(options), thread_pool_(options.num_background_threads()) {
+    : options_(options),thread_pool_(options.num_background_threads()) {
     CHECK(options.use_trajectory_builder_2d() ^
           options.use_trajectory_builder_3d());
     // 检查使用2D还是3D
@@ -93,7 +94,7 @@ MapBuilder::MapBuilder(const proto::MapBuilderOptions& options)
                         options_.pose_graph_options().optimization_problem_options()),
                     &thread_pool_);
     }
-    // 根据选项 判断是使用哪个传感器的收集者
+    // 根据选项 创建传感器的收集器
     if (options.collate_by_trajectory()) {
         sensor_collator_ = common::make_unique<sensor::TrajectoryCollator>();
     } else {

@@ -191,7 +191,7 @@ private:
 }  // namespace
 
 /// 主要看2D
-// 创建全局2D建图器
+// 创建CreateGlobalTrajectoryBuilder2D
 std::unique_ptr<TrajectoryBuilderInterface> CreateGlobalTrajectoryBuilder2D(
         std::unique_ptr<LocalTrajectoryBuilder2D> local_trajectory_builder,         //2D local SLAM 对象
         const int trajectory_id,                                                    //轨迹ID

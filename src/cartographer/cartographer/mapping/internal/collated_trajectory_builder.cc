@@ -107,8 +107,10 @@ void CollatedTrajectoryBuilder::HandleCollatedSensorData(
     //====================================================================================
 
     ///整个函数就这里有用
+    /// 这里的data 类型应该是 class Dispatchable : public Data  (具体见dispatchable.h)
     /// 将数据交给wrapped_trajectory_builder_
     /// 也就是GlobalTrajectoryBuilder<LocalTrajectoryBuilder2D, mapping::PoseGraph2D>> 类的对象
+    /// 即调用GlobalTrajectoryBuilder<LocalTrajectoryBuilder2D, mapping::PoseGraph2D>>::AddSensorData(sensor_id_, data_)
     data->AddToTrajectoryBuilder(wrapped_trajectory_builder_.get());
 }
 

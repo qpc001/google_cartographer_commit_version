@@ -73,7 +73,7 @@ public:
             const proto::TrajectoryBuilderOptions &trajectory_options,
             LocalSlamResultCallback local_slam_result_callback) override;
 
-    //
+    // 结束轨迹
     void FinishTrajectory(int trajectory_id) override;
 
     //(非重点)从proto读取
@@ -114,18 +114,25 @@ public:
     }
 
 private:
-    const proto::MapBuilderOptions options_;                                //配置选项
-    common::ThreadPool thread_pool_;                                        //线程池
+    //配置选项
+    const proto::MapBuilderOptions options_;                            //顺序不能换，必须放第一
+    //线程池
+    common::ThreadPool thread_pool_;
 
-    std::unique_ptr<PoseGraph> pose_graph_;                                 //位姿图
+    //传感器收集器
+    std::unique_ptr<sensor::CollatorInterface> sensor_collator_;
 
-    std::unique_ptr<sensor::CollatorInterface> sensor_collator_;            //传感器收集器
+    //轨迹构建器: TrajectoryBuilderInterface是基类
+    //实际上用的是子类: CollatedTrajectoryBuilder
+    std::vector<std::unique_ptr<mapping::TrajectoryBuilderInterface>>
+    trajectory_builders_;
 
-    std::vector<std::unique_ptr<mapping::TrajectoryBuilderInterface>>       //轨迹构建器: TrajectoryBuilderInterface是基类
-    trajectory_builders_;                                                   //实际上用的是子类: CollatedTrajectoryBuilder
+    //位姿图
+    std::unique_ptr<PoseGraph> pose_graph_;
 
+    //轨迹构建器的配置选项
     std::vector<proto::TrajectoryBuilderOptionsWithSensorIds>
-    all_trajectory_builder_options_;                                        //轨迹构建器的配置选项
+    all_trajectory_builder_options_;
 };
 
 }  // namespace mapping

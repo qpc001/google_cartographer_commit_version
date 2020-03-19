@@ -141,7 +141,7 @@ int MapBuilderBridge::AddTrajectory(
     // Make sure there is no trajectory with 'trajectory_id' yet.
     // 确保这个trajectory_id是唯一的
     CHECK_EQ(sensor_bridges_.count(trajectory_id), 0);
-    //
+    // 创建SensorBridge
     sensor_bridges_[trajectory_id] =
             cartographer::common::make_unique<SensorBridge>(
                 trajectory_options.num_subdivisions_per_laser_scan,
